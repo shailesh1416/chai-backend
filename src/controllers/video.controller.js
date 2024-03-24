@@ -43,7 +43,6 @@ const publishAVideo = asyncHandler(async (req, res) => {
         const videoLocalPath = req.files?.videoFile[0]?.path;
         //const coverImageLocalPath = req.files?.coverImage[0]?.path;
     
-        console.log(req.files)
         let thumbnailLocalPath;
         if (req.files && Array.isArray(req.files.thumbnail) && req.files.thumbnail.length > 0) {
             thumbnailLocalPath = req.files.thumbnail[0].path

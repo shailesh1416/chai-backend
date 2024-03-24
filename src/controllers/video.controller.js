@@ -162,7 +162,7 @@ const deleteVideo = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Video does not exist")
     }
 
-    const validId = ObjectId.isValid(videoId) 
+    const validId = ObjectId.isValid(videoId)
 
     if (!validId) {
         throw new ApiError(400, "Invalid video ID")

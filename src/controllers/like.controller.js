@@ -57,14 +57,14 @@ const toggleCommentLike = asyncHandler(async (req, res) => {
 
     const result = await Like.find({
         likedBy:req.user?._id,
-        video:new ObjectId(commentId)
+        comment:new ObjectId(commentId)
     })
 
 
     if(result.length===0){
         const like =await Like.create({
             likedBy:req.user?._id,
-            video:new ObjectId(commentId)
+            comment:new ObjectId(commentId)
         })
 
         if(!like){
@@ -100,14 +100,14 @@ const toggleTweetLike = asyncHandler(async (req, res) => {
 
     const result = await Like.find({
         likedBy:req.user?._id,
-        video:new ObjectId(tweetId)
+        tweet:new ObjectId(tweetId)
     })
 
 
     if(result.length===0){
         const like =await Like.create({
             likedBy:req.user?._id,
-            video:new ObjectId(tweetId)
+            tweet:new ObjectId(tweetId)
         })
 
         if(!like){

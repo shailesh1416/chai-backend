@@ -66,7 +66,8 @@ const publishAVideo = asyncHandler(async (req, res) => {
             videoFile: videoFile.url,
             thumbnail: thumbnail?.url || "",
             description, 
-            duration: videoFile.duration
+            duration: videoFile.duration,
+            owner:req.user?._id
         })
 
         const createdVideo = await Video.findById(video._id).select(
@@ -102,6 +103,13 @@ const getVideoById = asyncHandler(async (req, res) => {
         throw new ApiError(500, "Video does not exist")
     }
 
+    const updatedVideo = await Video.updateOne(
+        {_id:new ObjectId(videoId)},
+        { $inc: { views: 1 } },
+        {new:true}
+    )
+
+
     return res.status(201).json(
         new ApiResponse(200, videoDetails, "Video retrived successfully")
     )
@@ -116,6 +124,12 @@ const updateVideo = asyncHandler(async (req, res) => {
     if (!title || !description) {
             throw new ApiError(400, "All fields are required")
         }
+
+    
+    const result = await Video.find({
+        owner:req.user?._id,
+        video:new ObjectId(videoId)
+    })
 
     const updateFields = {
         title,

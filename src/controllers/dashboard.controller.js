@@ -84,24 +84,13 @@ const getChannelVideos = asyncHandler(async (req, res) => {
                     }
                 }
             }
-        },
-        {
-            $lookup: {
-                from: "users", // Name of the users collection
-                let: { ownerId: "$owner" },
-                pipeline: [
-                    { $match: { $expr: { $eq: ["$_id", "$$ownerId"] } } },
-                    { $project: { _id: 1, username: 1, avatar: 1 } } // Select specific fields
-                ],
-                as: "ownerDetails"
-            }
         }
     ]);
 
     return res
     .status(200)
     .json(new ApiResponse(200, 
-        {"videos":videosWithLikesAndOwnerDetails,
+        {"videos":videosWithLikes,
     }, 
     "Videos retrived successfully"))
 })

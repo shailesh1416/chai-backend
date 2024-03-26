@@ -60,7 +60,7 @@ const getChannelVideos = asyncHandler(async (req, res) => {
     // TODO: Get all the videos uploaded by the channel
 
     
-    const videosWithLikesAndOwnerDetails = await Video.aggregate([
+    const videosWithLikes = await Video.aggregate([
         {
             $match: {
                 owner: req.user._id
